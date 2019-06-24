@@ -10,23 +10,20 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
 import CatoryList from '@/components/CatoryList';
+import { getBookList } from '@/api';
 
 export default {
   name: 'home',
   data() {
     return {
       bookTitle: '书籍类别',
-      bookList: [
-        {
-          id: 1,
-          name: '奇幻'
-        },
-        {
-          id: 2,
-          name: '玄幻'
-        }
-      ]
+      bookList: []
     };
+  },
+  mounted() {
+    getBookList().then(res => {
+      this.bookList = res.bookLists;
+    });
   },
   components: {
     HelloWorld,

@@ -1,21 +1,33 @@
 <template>
   <div class="catory-list">
     <div class="title">{{ title }}</div>
-    <div class="catory-list-item" v-for="item in dataList" v-bind:key="item.id">
-      <img class="book-cover" src="@/assets/logo.png" alt="poster" />
+    <div class="catory-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
+      <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
-        <div class="book-title">{{ item.name }}</div>
-        <div class="book-desc">{{ item.name }}</div>
-        <div class="book-viewer">{{ item.name }}</div>
+        <div class="book-title">{{ item.title }}</div>
+        <div class="book-desc">{{ item.desc }}</div>
+        <div class="book-viewer">{{ item.collectorCount }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+const staticPath = 'http://statics.zhuishushenqi.com';
+
 export default {
   name: 'CatoryList',
-  props: ['title', 'dataList']
+  props: ['title', 'dataList'],
+  computed: {
+    fitlerDataList: function() {
+      let dataList = this.dataList;
+      //在使用filter时需要注意的是，前面调用的是需要使用filter的数组，而给filter函数传入的是数组中的每个item，也就是说filter里面的函数，是每个item要去做的，并将每个结果返回。
+      return dataList.filter(function(item) {
+        item.cover = staticPath + item.cover;
+        return item;
+      });
+    }
+  }
 };
 </script>
 
@@ -58,14 +70,14 @@ export default {
     }
     .book-desc {
       display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      word-break: break-all;
-      text-overflow: ellipsis;
       overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
       font-size: 0.12rem;
       color: #999;
       line-height: 0.2rem;
+      max-height: 0.4rem;
     }
 
     .book-viewer {

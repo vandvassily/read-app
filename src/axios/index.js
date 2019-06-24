@@ -1,16 +1,13 @@
 import axios from 'axios';
 import qs from 'qs';
-import router from '../router';
 
-const devUrl = 'http://localhost:8080';
-const prodUrl = 'http://www.baidu.com';
-
-const apiBaseUrl = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
+// const apiBaseUrl = 'http://novel.juhe.im/';
+const apiBaseUrl = 'http://172.16.4.92:8081/';
 const Axios = axios.create({
   baseURL: apiBaseUrl, // 因为我本地做了反向代理
   timeout: 10000,
   responseType: 'json',
-  withCredentials: true, // 是否允许带cookie这些
+  // withCredentials: true, // 是否允许带cookie这些
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   }
@@ -39,36 +36,36 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
   res => {
     // 对响应数据做些事
-    if (res.data && !res.data.success) {
-      //   Message({
-      //     //  饿了么的消息弹窗组件,类似toast
-      //     showClose: true,
-      //     message: res.data.message,
-      //     type: 'error'
-      //   })
-      // return Promise.reject(res.data)
-    }
+    // if (res.data && !res.data.success) {
+    //   Message({
+    //     //  饿了么的消息弹窗组件,类似toast
+    //     showClose: true,
+    //     message: res.data.message,
+    //     type: 'error'
+    //   })
+    // return Promise.reject(res.data)
+    // }
     return res.data;
   },
   error => {
     // 用户登录的时候会拿到一个基础信息,比如用户名,token,过期时间戳
     // 直接丢localStorage或者sessionStorage
     if (error.response) {
-      switch (error.response.status) {
-      case 401:
-        router.push({
-          // 跳转到登录页面
-          path: '/login'
-        });
-        break;
-      case 404:
-        router.push({
-          path: '/404'
-        });
-        break;
-      }
+      // switch (error.response.status) {
+      //   case 401:
+      //     router.push({
+      //       // 跳转到登录页面
+      //       path: '/login'
+      //     });
+      //     break;
+      //   case 404:
+      //     router.push({
+      //       path: '/404'
+      //     });
+      //     break;
+      // }
     }
-    return Promise.reject(error.response.data);
+    return Promise.reject(error.response);
     // 返回 response 里的错误信息
     // let errorInfo = error.data.error ? error.data.error.message : error.data
   }
