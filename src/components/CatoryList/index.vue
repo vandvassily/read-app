@@ -6,7 +6,7 @@
       <div class="book-info">
         <div class="book-title">{{ item.title }}</div>
         <div class="book-desc">{{ item.desc }}</div>
-        <div class="book-viewer">{{ item.collectorCount }}</div>
+        <div class="book-viewer">收藏人数 | {{ item.collectorCount }}</div>
       </div>
     </div>
   </div>
@@ -17,7 +17,10 @@ const staticPath = 'http://statics.zhuishushenqi.com';
 
 export default {
   name: 'CatoryList',
-  props: ['title', 'dataList'],
+  props: {
+    title: String,
+    dataList: Array
+  },
   computed: {
     fitlerDataList: function() {
       let dataList = this.dataList;
@@ -42,6 +45,8 @@ export default {
     font-size: 0.16rem; /* 20/100 */
     color: #42b983;
     width: 100%;
+    padding-left: 0.04rem;
+    border-left: 4px solid #42b983;
   }
   .catory-list-item {
     display: flex;
@@ -72,7 +77,9 @@ export default {
       display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
+      /* autoprefixer: off */
       -webkit-box-orient: vertical;
+      /* autoprefixer: on */
       -webkit-line-clamp: 2;
       font-size: 0.12rem;
       color: #999;
@@ -84,6 +91,8 @@ export default {
       position: absolute;
       left: 0;
       bottom: 0;
+      color: #666;
+      font-size: 0.14rem;
     }
   }
 }
