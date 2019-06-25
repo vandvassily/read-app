@@ -40,6 +40,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 0.2rem;
   .title {
     text-align: left;
     font-size: 0.16rem; /* 20/100 */
