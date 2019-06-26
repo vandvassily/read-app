@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <div></div>
-    </div> -->
     <router-view />
   </div>
 </template>
 
 <style lang="less">
+html {
+  width: 100%;
+}
 body {
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -21,6 +20,7 @@ body {
   text-align: center;
   color: #2c3e50;
   font-size: 0.16rem;
+  width: 100%;
 }
 #nav {
   padding: 30px;

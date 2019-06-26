@@ -19,7 +19,8 @@ export default {
   position: relative;
   height: 0.5rem;
   width: 100%;
-  background: #b83320;
+  // background: #b83320;
+  background: #eee;
   .logo {
     position: absolute;
     left: 0.4rem;
