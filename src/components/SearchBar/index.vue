@@ -18,11 +18,15 @@ export default {
 .search-bar {
   position: relative;
   width: 100%;
-  height: 0.3rem;
+  height: 0.38rem;
+  padding: 0.04rem 0.1rem;
+  box-sizing: border-box;
+  background: #fff;
   .search-link {
-    margin: 0.04rem 0.1rem;
+    position: relative;
     border-radius: 0.04rem;
     height: 100%;
+    width: 100%;
     box-sizing: border-box;
     background: #eee;
   }
@@ -31,7 +35,7 @@ export default {
     height: 0.2rem;
     position: absolute;
     display: block;
-    right: 0.3rem;
+    right: 0.1rem;
     top: 0.05rem;
   }
 }

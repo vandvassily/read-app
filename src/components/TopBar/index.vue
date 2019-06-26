@@ -1,8 +1,12 @@
 <template>
   <div class="top-bar">
     <img class="logo" src="@/assets/logo.png" alt="" />
-    <img class="my-books" src="@/assets/shujia.svg" alt="" />
-    <img class="my-center" src="@/assets/me.svg" alt="" />
+    <router-link to="/bookshelf">
+      <img class="my-books" src="@/assets/shujia.svg" alt="" />
+    </router-link>
+    <router-link to="/center">
+      <img class="my-center" src="@/assets/me.svg" alt="" />
+    </router-link>
   </div>
 </template>
 

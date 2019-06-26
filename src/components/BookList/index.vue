@@ -5,19 +5,18 @@
       <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
         <div class="book-title">{{ item.title }}</div>
+        <div class="book-author">{{ item.author }}</div>
         <div class="book-desc">{{ item.desc }}</div>
-        <div class="book-viewer">收藏人数 | {{ item.collectorCount }}</div>
+        <div class="book-viewer">共{{ item.bookCount }}本书 | 收藏人数 {{ item.collectorCount }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// const staticPath = 'http://statics.zhuishushenqi.com';
 import utils from '@/utils';
-
 export default {
-  name: 'CatoryList',
+  name: 'BookList',
   props: {
     title: String,
     dataList: Array
@@ -68,6 +67,18 @@ export default {
     margin-left: 0.2rem;
     position: relative;
     text-align: left;
+    .book-author {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+      -webkit-line-clamp: 1;
+      font-size: 0.12rem;
+      color: #999;
+      line-height: 0.2rem;
+    }
 
     .book-title {
       color: #333;
@@ -83,11 +94,10 @@ export default {
       /* autoprefixer: off */
       -webkit-box-orient: vertical;
       /* autoprefixer: on */
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       font-size: 0.12rem;
       color: #999;
       line-height: 0.2rem;
-      max-height: 0.4rem;
     }
 
     .book-viewer {

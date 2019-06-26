@@ -2,7 +2,6 @@
   <div class="home">
     <div class="home-top">
       <TopBar />
-      <SearchBar />
     </div>
     <div class="home-wrapper">
       <BookList :title="bookTitle" :dataList="bookList" />
@@ -14,11 +13,10 @@
 // @ is an alias to /src
 import BookList from '@/components/BookList';
 import TopBar from '@/components/TopBar';
-import SearchBar from '@/components/SearchBar';
 import { getBookList } from '@/api';
 
 export default {
-  name: 'home',
+  name: 'bookshelf',
   data() {
     return {
       bookTitle: '书籍类别',
@@ -33,7 +31,6 @@ export default {
   mounted() {},
   components: {
     TopBar,
-    SearchBar,
     BookList
   }
 };
@@ -55,7 +52,7 @@ export default {
   z-index: 20;
 }
 .home-wrapper {
-  margin-top: 0.88rem;
+  margin-top: 0.5rem;
   background: #f4f4f4;
 }
 </style>
