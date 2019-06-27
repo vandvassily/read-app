@@ -1,25 +1,25 @@
 <template>
-  <div class="catory-list">
+  <div class="category-list">
     <div class="title">{{ title }}</div>
-    <div class="catory-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
+    <div class="category-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
       <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
         <div class="book-title">{{ item.title }}</div>
-        <div class="book-desc">{{ item.desc }}</div>
-        <div class="book-viewer">收藏人数 | {{ item.collectorCount }}</div>
+        <div class="book-desc">{{ item.shortIntro }}</div>
+        <div class="book-viewer">人气 {{ item.latelyFollower }} | 留存率 {{ item.retentionRatio }}%</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// const staticPath = 'http://statics.zhuishushenqi.com';
 import utils from '@/utils';
 
 export default {
-  name: 'CatoryList',
+  name: 'CategoryList',
   props: {
     title: String,
+    hasAuthor: Boolean,
     dataList: Array
   },
   computed: {
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.catory-list {
+.category-list {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -45,13 +45,15 @@ export default {
   margin-bottom: 0.2rem;
   .title {
     text-align: left;
-    font-size: 0.16rem; /* 20/100 */
+    font-size: 0.16rem;
     color: #42b983;
     width: 100%;
+    font-weight: 600;
+    line-height: 0.24rem;
     padding-left: 0.04rem;
     border-left: 4px solid #42b983;
   }
-  .catory-list-item {
+  .category-list-item {
     display: flex;
     width: 100%;
     padding: 0.1rem 0;

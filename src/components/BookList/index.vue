@@ -1,7 +1,7 @@
 <template>
-  <div class="catory-list">
+  <div class="category-list">
     <div class="title">{{ title }}</div>
-    <div class="catory-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
+    <div class="category-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
       <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
         <div class="book-title">{{ item.title }}</div>
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.catory-list {
+.category-list {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@ export default {
     padding-left: 0.04rem;
     border-left: 4px solid #42b983;
   }
-  .catory-list-item {
+  .category-list-item {
     display: flex;
     width: 100%;
     padding: 0.1rem 0;

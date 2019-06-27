@@ -5,37 +5,56 @@
       <SearchBar />
     </div>
     <div class="home-wrapper">
-      <BookList :title="bookTitle" :dataList="bookList" />
+      <CategoryList :title="obj.category1.minor" :dataList="categoryList1" />
+      <CategoryList :title="obj.category2.minor" :dataList="categoryList2" />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import BookList from '@/components/BookList';
+import CategoryList from '@/components/CategoryList';
 import TopBar from '@/components/TopBar';
 import SearchBar from '@/components/SearchBar';
-import { getBookList } from '@/api';
+import { getHomeCategoryList } from '@/api';
 
 export default {
   name: 'home',
   data() {
     return {
       bookTitle: '书籍类别',
-      bookList: []
+      bookList: [],
+      obj: {
+        category1: {
+          type: 'hot',
+          major: '奇幻',
+          minor: '西方奇幻',
+          limit: 5
+        },
+        category2: {
+          type: 'hot',
+          major: '玄幻',
+          minor: '异界大陆',
+          limit: 5
+        }
+      },
+      categoryList1: [],
+      categoryList2: []
     };
   },
   created() {
-    getBookList().then(res => {
-      this.bookList = res.bookLists;
+    getHomeCategoryList(this.obj).then(resArray => {
+      this.categoryList1 = resArray[0].books;
+      this.categoryList2 = resArray[1].books;
     });
   },
   mounted() {},
   components: {
     TopBar,
     SearchBar,
-    BookList
-  }
+    CategoryList
+  },
+  methods: {}
 };
 </script>
 
