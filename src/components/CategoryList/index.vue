@@ -5,10 +5,12 @@
       <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
         <div class="book-title">{{ item.title }}</div>
-        <div class="book-desc">{{ item.shortIntro }}</div>
+        <div v-if="hasAuthor" class="book-author">{{ item.author }}</div>
+        <div class="book-desc" :class="hasAuthor ? 'line-one' : 'line-two'">{{ item.shortIntro }}</div>
         <div class="book-viewer">人气 {{ item.latelyFollower }} | 留存率 {{ item.retentionRatio }}%</div>
       </div>
     </div>
+    <router-link v-if="showMore" to="/Category" class="look-more">查看更多></router-link>
   </div>
 </template>
 
@@ -20,6 +22,10 @@ export default {
   props: {
     title: String,
     hasAuthor: Boolean,
+    showMore: {
+      type: Boolean,
+      default: false
+    },
     dataList: Array
   },
   computed: {
@@ -78,7 +84,16 @@ export default {
       text-overflow: ellipsis;
       overflow: hidden;
     }
+    .book-author {
+      line-height: 0.2rem;
+      font-size: 0.14rem;
+      color: #999;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
     .book-desc {
+      padding: 0.04rem 0 0;
       display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -92,6 +107,10 @@ export default {
       max-height: 0.4rem;
     }
 
+    .line-one {
+      -webkit-line-clamp: 1;
+    }
+
     .book-viewer {
       position: absolute;
       left: 0;
@@ -99,6 +118,12 @@ export default {
       color: #666;
       font-size: 0.14rem;
     }
+  }
+
+  .look-more {
+    line-height: 0.4rem;
+    font-size: 0.16rem;
+    color: #42b983;
   }
 }
 </style>

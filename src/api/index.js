@@ -16,7 +16,7 @@ function getCategoryList(obj) {
     start: obj.start || 0,
     limit: obj.limit || 20
   };
-  return axios.get('api/category-info', { params: params });
+  return axios.get('api/category-info', { params });
 }
 
 /**

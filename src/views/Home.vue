@@ -5,7 +5,7 @@
       <SearchBar />
     </div>
     <div class="home-wrapper">
-      <CategoryList :title="obj.category1.minor" :dataList="categoryList1" />
+      <CategoryList :title="obj.category1.minor" :dataList="categoryList1" :hasAuthor="hasAuthor" />
       <CategoryList :title="obj.category2.minor" :dataList="categoryList2" />
     </div>
   </div>
@@ -24,6 +24,7 @@ export default {
     return {
       bookTitle: '书籍类别',
       bookList: [],
+      hasAuthor: true,
       obj: {
         category1: {
           type: 'hot',
