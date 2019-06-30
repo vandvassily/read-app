@@ -17,6 +17,16 @@ export default new Router({
       component: () => import(/* webpackChunkName: "bookshelf" */ './views/BookShelf.vue')
     },
     {
+      path: '/category',
+      name: 'category',
+      component: () => import('./views/Category.vue')
+    },
+    {
+      path: '/category/details',
+      name: 'categoryDetails',
+      component: () => import('./views/CategoryDetails.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

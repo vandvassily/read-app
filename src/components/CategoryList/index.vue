@@ -1,6 +1,6 @@
 <template>
   <div class="category-list">
-    <div class="title">{{ title }}</div>
+    <div v-if="showTitle" class="title">{{ title }}</div>
     <div class="category-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
       <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
@@ -10,7 +10,7 @@
         <div class="book-viewer">人气 {{ item.latelyFollower }} | 留存率 {{ item.retentionRatio }}%</div>
       </div>
     </div>
-    <router-link v-if="showMore" to="/Category" class="look-more">查看更多></router-link>
+    <router-link v-if="showMore" :to="{ name: 'categoryDetails', query: { major } }" class="look-more">查看更多></router-link>
   </div>
 </template>
 
@@ -22,6 +22,14 @@ export default {
   props: {
     title: String,
     hasAuthor: Boolean,
+    showTitle: {
+      type: Boolean,
+      default: true
+    },
+    major: {
+      type: String,
+      default: '奇幻'
+    },
     showMore: {
       type: Boolean,
       default: false

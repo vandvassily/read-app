@@ -7,7 +7,7 @@ export function getBookList() {
  * 获取分类书籍
  * @param {Object} obj 请求参数对象
  */
-function getCategoryList(obj) {
+export function getCategoryList(obj) {
   let params = {
     gender: obj.gender || 'male',
     type: obj.type || 'hot',
@@ -25,4 +25,11 @@ function getCategoryList(obj) {
  */
 export function getHomeCategoryList(obj) {
   return Promise.all([getCategoryList(obj.category1), getCategoryList(obj.category2)]);
+}
+
+/**
+ * 获取所有带有书籍数量分类的信息
+ */
+export function getCategories() {
+  return axios.get('api/categories');
 }
