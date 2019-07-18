@@ -1,7 +1,7 @@
 <template>
   <div class="category-list">
     <div v-if="showTitle" class="title">{{ title }}</div>
-    <div class="category-list-item" v-for="item in fitlerDataList" v-bind:key="item.id">
+    <router-link :to="'/book/' + item._id" tag="div" class="category-list-item" v-for="item in fitlerDataList" v-bind:key="item._id">
       <img class="book-cover" :src="item.cover" alt="poster" />
       <div class="book-info">
         <div class="book-title">{{ item.title }}</div>
@@ -9,7 +9,7 @@
         <div class="book-desc" :class="hasAuthor ? 'line-one' : 'line-two'">{{ item.shortIntro }}</div>
         <div class="book-viewer">人气 {{ item.latelyFollower }} | 留存率 {{ item.retentionRatio }}%</div>
       </div>
-    </div>
+    </router-link>
     <router-link v-if="showMore" :to="{ name: 'categoryDetails', query: { major } }" class="look-more">查看更多></router-link>
   </div>
 </template>
@@ -55,8 +55,9 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 0.1rem;
+  padding: 0.1rem 0.1rem 0;
   margin-bottom: 0.2rem;
+  background: #fff;
   .title {
     text-align: left;
     font-size: 0.16rem;
@@ -101,7 +102,7 @@ export default {
       overflow: hidden;
     }
     .book-desc {
-      padding: 0.04rem 0 0;
+      padding: 0.02rem 0 0;
       display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -132,6 +133,7 @@ export default {
     line-height: 0.4rem;
     font-size: 0.16rem;
     color: #42b983;
+    text-decoration: none;
   }
 }
 </style>

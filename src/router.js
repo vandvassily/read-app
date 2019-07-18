@@ -17,6 +17,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "bookshelf" */ './views/BookShelf.vue')
     },
     {
+      path: '/book/:id',
+      name: 'book',
+      component: () => import(/* webpackChunkName: "bookshelf" */ './views/Book.vue')
+    },
+    {
       path: '/category',
       name: 'category',
       component: () => import('./views/Category.vue')

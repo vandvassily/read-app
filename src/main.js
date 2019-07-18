@@ -5,7 +5,7 @@ import store from './store';
 import axios from 'axios';
 Vue.prototype.$http = axios;
 // 引用normalize.css进行格式化
-import 'normalize.css/normalize.css';
+import 'normalize.css';
 
 Vue.config.productionTip = false;
 

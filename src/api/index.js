@@ -33,3 +33,10 @@ export function getHomeCategoryList(obj) {
 export function getCategories() {
   return axios.get('api/categories');
 }
+
+/**
+ * 获取书籍的详细信息
+ */
+export function getBookInfo(id) {
+  return axios.get('api/book-info/' + id);
+}
