@@ -1,7 +1,7 @@
 <template>
   <div>
     <TopBack :title="'书籍详情'" />
-    <section class="wrapper">
+    <section class="wrapper" v-if="dataObj">
       <div>
         <div class="book-details">
           <img class="book-cover" :src="dataObj.cover | filterImgPath" alt="poster" />
@@ -38,10 +38,17 @@
           </div>
         </div>
         <div class="introduction">
-          <p>{{ dataObj.longIntro }}</p>
+          <p class="intro-content" :class="collapsed ? 'collapsed' : ''">{{ dataObj.longIntro }}</p>
+          <div class="intro-arrow" :class="collapsed ? '' : 'rotated'" @click="changeDesc"><img src="../assets/arrow_down.svg" alt="arrow_down" /></div>
           <div class="chapter">
             <span>目录</span>
             <span class="chapter-name">{{ dataObj.lastChapter }}</span>
+          </div>
+        </div>
+        <div class="discussions" v-if="discussions">
+          <div class="discus-title"></div>
+          <div class="discus-list" v-for="item in discussions" :key="item.id">
+            <div class="discus-item"></div>
           </div>
         </div>
       </div>
@@ -54,29 +61,42 @@
 // @ is an alias to /src
 import TopBack from '@/components/TopBar/TopBack';
 // import SearchBar from '@/components/SearchBar';
-import { getBookInfo } from '@/api';
+import { getBookInfo, getBookDiscussions } from '@/api';
 import utils from '@/utils';
 
 export default {
   name: 'home',
   data() {
     return {
-      dataObj: {}
+      dataObj: null,
+      collapsed: true,
+      discussions: []
     };
   },
   created() {
-    getBookInfo(this.$route.params.id).then(res => {
-      console.log(this.dataObj);
-      //   res.cover = utils.staticPath + res.cover;
-      this.dataObj = res;
+    let bookId = this.$route.params.id;
+    Promise.all([getBookInfo(bookId), getBookDiscussions(bookId)]).then(arr => {
+      this.dataObj = arr[0];
+      if (arr[1].posts.length > 2) {
+        arr[1].posts.splice(0, 2);
+        this.discussions = arr[1].posts;
+      }
     });
+    // getBookInfo(this.$route.params.id).then(res => {
+    //   console.log(this.dataObj);
+
+    // });
   },
   mounted() {},
   components: {
     TopBack
     // SearchBar,
   },
-  methods: {},
+  methods: {
+    changeDesc() {
+      this.collapsed = !this.collapsed;
+    }
+  },
   filters: {
     filterImgPath(value) {
       if (!value) return '';
@@ -93,7 +113,8 @@ export default {
     display: flex;
     width: 100%;
     padding: 0.1rem;
-    height: 0.8rem;
+    height: 1rem;
+    box-sizing: border-box;
 
     .book-cover {
       width: 0.625rem;
@@ -153,6 +174,7 @@ export default {
     display: flex;
     position: relative;
     line-height: 0.6rem;
+    box-sizing: border-box;
 
     .half {
       flex: 1;
@@ -177,24 +199,43 @@ export default {
   }
 
   .introduction {
+    position: relative;
     padding: 0.1rem 0.1rem 0;
     border-bottom: 0.01rem solid #ebebeb;
     p {
       margin: 0;
       position: relative;
       padding: 0;
-      line-height: 0.2rem;
+      line-height: 1.6;
       font-size: 0.14rem;
       word-break: break-all;
       color: #222;
       text-align: left;
-      border-bottom: 0.01rem solid #f4f4f4;
+      transition: all 0.5s;
+    }
+
+    .intro-arrow {
+      width: 0.2rem;
+      height: 0.2rem;
+      position: absolute;
+      right: 0.1rem;
+      bottom: 0.5rem;
+      transition: all 0.5s;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .rotated {
+      transform: rotate(180deg);
     }
 
     .chapter {
       padding: 0.15rem;
       line-height: 0.2rem;
       text-align: left;
+      margin-top: 0.06rem;
+      border-top: 0.01rem solid #f4f4f4;
 
       :first-child {
         color: #222;
@@ -213,6 +254,16 @@ export default {
       }
     }
   }
+}
+
+.collapsed {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  -webkit-line-clamp: 3;
 }
 
 .button {

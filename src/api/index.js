@@ -40,3 +40,10 @@ export function getCategories() {
 export function getBookInfo(id) {
   return axios.get('api/book-info/' + id);
 }
+
+/**
+ * 获取书籍的评论信息
+ */
+export function getBookDiscussions(id) {
+  return axios.get('api/book/discussions?book=' + id);
+}
