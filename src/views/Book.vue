@@ -46,9 +46,25 @@
           </div>
         </div>
         <div class="discussions" v-if="discussions">
-          <div class="discus-title"></div>
+          <div class="discus-title">热门书评</div>
           <div class="discus-list" v-for="item in discussions" :key="item.id">
-            <div class="discus-item"></div>
+            <div class="discus-item">
+              <div class="reader-head">
+                <img :src="item.author.avatar | filterImgPath" alt="" />
+              </div>
+              <div class="discuss-info">
+                <p class="name">{{ item.author.nickname }}</p>
+                <p class="title">{{ item.title }}</p>
+                <p class="score" v-for="num in item.likeCount" :key="num.index">
+                  <i class="star-full"></i>
+                </p>
+                <p class="content">{{ item.content }}</p>
+                <p class="love">
+                  <span>{{ item.created | formateTime }}</span>
+                  <span>{{ item.voteCount }}人觉得有用</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -101,6 +117,9 @@ export default {
     filterImgPath(value) {
       if (!value) return '';
       return utils.staticPath + value;
+    },
+    formateTime(value) {
+      return utils.timestampFormat(new Date(value));
     }
   }
 };
@@ -219,7 +238,7 @@ export default {
       height: 0.2rem;
       position: absolute;
       right: 0.1rem;
-      bottom: 0.5rem;
+      bottom: 0.6rem;
       transition: all 0.5s;
       img {
         width: 100%;
@@ -283,5 +302,102 @@ export default {
 .red {
   background: #b93321;
   color: #fff;
+}
+
+.discussions {
+  padding: 0.1rem 0.2rem;
+}
+.discus-title {
+  line-height: 0.4rem;
+  text-align: left;
+}
+
+.discus-list {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.discus-item {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  text-align: left;
+  border-bottom: 0.01rem solid #f4f4f4;
+
+  .reader-head {
+    width: 0.6rem;
+    height: 0.6rem;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 0.3rem;
+    }
+  }
+
+  .discuss-info {
+    flex: 1;
+    padding-left: 0.1rem;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    .name {
+      position: relative;
+      height: 0.2rem;
+      line-height: 0.2rem;
+      color: #a58d5e;
+      font-size: 0.12rem;
+    }
+
+    .title {
+      height: 0.3rem;
+      line-height: 0.3rem;
+      font-weight: 700;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: #000;
+    }
+
+    .score {
+      padding: 0.04rem 0;
+      height: 0.2rem;
+
+      .star-full {
+        display: inline-block;
+        vertical-align: middle;
+        width: 0.2rem;
+        height: 0.2rem;
+        background: url(../assets/star.svg) no-repeat;
+        background-size: 0.2rem 0.2rem;
+      }
+    }
+
+    .content {
+      height: 0.6rem;
+      overflow: hidden;
+      line-height: 0.3rem;
+      text-align: justify;
+    }
+
+    .love {
+      padding: 0.06rem 0;
+      line-height: 0.2rem;
+      font-size: 0.14rem;
+      overflow: hidden;
+      color: #999;
+      span {
+        vertical-align: middle;
+      }
+      :first-child {
+        float: left;
+      }
+      :last-child {
+        float: right;
+      }
+    }
+  }
 }
 </style>
